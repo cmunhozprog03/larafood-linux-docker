@@ -4,9 +4,25 @@
 
 @section('content_header')
     <div class="row justify-content-between">
+      <div class="col-md-4 col-sm-12 col-lg-4">
         <h1>Listagem de Planos</h1>
+      </div>
+      <div class="col-md-4 col-sm-12 col-lg-4">
         <a href="{{ route('admin.plans.create') }}" class="btn btn-dark">Novo</a>
-    </div>
+
+      </div>
+      <div class="col-md-4 col-sm-12 col-lg-4">
+        <form action="{{ route('planos.search') }}" method="POST" class="form form-inline">
+          @csrf
+          <input type="text" name="filter" placeholder="Nome" class="form-control" value="{{ $filters['filter'] ?? '' }}">
+          <button type="submit" class="btn btn-dark">Filtrar</button>
+      </form>
+      </div>
+        
+        
+        
+        
+      </div>
 
 @stop
 
@@ -40,7 +56,11 @@
               @endforeach
             </tbody>
           </table>
-          {{ $plans->links() }}
+          @if (isset($filters))
+                {!! $plans->appends($filters)->links() !!}
+            @else
+                {!! $plans->links() !!}
+            @endif
         </div>
         
       @else

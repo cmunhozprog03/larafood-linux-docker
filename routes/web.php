@@ -24,4 +24,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashController::class, 'index'])->name('dasn.index');
 
 // PLANS
+Route::any('planos/search', [PlanController::class, 'search'])->name('planos.search');
 Route::resource('/planos', PlanController::class)->names('admin.plans');
